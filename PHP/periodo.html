@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Alterar Periodo Teste</title>
+</head>
+
+<body>
+
+<tr>
+<td><p class="texto">Desligue ou Ligue</p></td>
+<td>&nbsp;</td>
+</tr>
+<button onclick="Liga()">ON</button>
+<button onclick="Desliga()">OFF</button>
+
+<script type="text/javascript">
+function Desliga() {
+///verificação da entrada digitada	
+	var string = "wfile.php?msg=ledof";
+	window.location.href = string;
+}
+</script>
+
+<script type="text/javascript">
+function Liga() {
+///verificação da entrada digitada	
+	var string = "wfile.php?msg=ledon";
+	window.location.href = string;
+}
+</script>
+
+
+</body>
+</html>
