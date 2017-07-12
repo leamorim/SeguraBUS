@@ -120,13 +120,6 @@ void loop() {
       recebido = true;
 
     }
-    
-    if(!serial1.available){//caso o GPS não esteja funcionando
-    
-      
-    }
-
-
 
     if (recebido) {
       Serial.println("----------------------------------------");
