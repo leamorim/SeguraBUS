@@ -38,6 +38,7 @@ void setup() {
 }
 
 void loop() {
+  long latitude, longitude;
   String DatEth;
 
   /// Espera o botao ser apertado
@@ -131,7 +132,6 @@ void loop() {
       Serial.println("----------------------------------------");
 
       //Latitude e Longitude
-      long latitude, longitude;
       unsigned long idadeInfo;
       gps1.get_position(&latitude, &longitude, &idadeInfo);
 
