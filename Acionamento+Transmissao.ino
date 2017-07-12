@@ -122,7 +122,7 @@ void loop() {
 
     }
     
-    if(!serial1.available){
+    if(!serial1.available){//caso o GPS não esteja funcionando
     
       
     }
@@ -151,7 +151,12 @@ void loop() {
         Serial.print("Idade da Informacao (ms): ");
         Serial.println(idadeInfo);
       }
-
+    }
+    else{//caso o GPS não esteja funcionando
+      latitude = 0.0000000;
+      longitude = 0.0000000;
+    }
+    
       if (cliente.connect(servidor, 80)) {
         // Make a HTTP request:
         cliente.print("GET /arduino/segurabus/salvardados.php?");
@@ -173,15 +178,12 @@ void loop() {
         Serial.print("status=");
         Serial.println(desativador);
 
-
-
         cliente.stop();
       }
       else {
         cliente.stop();
       }
-
-    }
+      
     delay(2000);
   }
   desativador = 1;//variável de controle do loop
