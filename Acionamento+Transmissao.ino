@@ -121,6 +121,11 @@ void loop() {
       recebido = true;
 
     }
+    
+    if(!serial1.available){
+    
+      
+    }
 
 
 
