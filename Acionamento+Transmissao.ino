@@ -20,7 +20,6 @@ SoftwareSerial serial1(8, 9); // RX, TX
 TinyGPS gps1;
 
 const int buttonPin1 = 6;     // the number of the pushbutton1 pin
-const int buttonPin2 = 5;     // the number of the pushbutton2 pin
 const int ledPin =  7;      // the number of the LED pin
 const int ledPin2 = 3;      // the number of the LED pin
 byte desativador = 1;
@@ -36,7 +35,6 @@ void setup() {
   pinMode(ledPin2, OUTPUT);
   // initialize the pushbutton pin as an input:
   pinMode(buttonPin1, INPUT);
-  pinMode(buttonPin2, INPUT);
 }
 
 void loop() {
