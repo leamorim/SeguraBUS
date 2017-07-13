@@ -24,7 +24,7 @@ const int ledPin =  7;      // Pino LED branco
 const int ledPin2 = 3;      // Pino LED vermelho
 
 byte desativador = 1; // variavel de controle do alerta
-bool conexao = TRUE;
+bool conexao = true;
 
 void setup() {
 
@@ -65,7 +65,7 @@ void loop() {
     Serial.println("Conectado");
     Serial.println("Alarme Ativado com Sucesso!");
     digitalWrite(ledPin, HIGH);   // acende o LED para indicar que a informação está sendo enviada
-    conexao = TRUE;
+    conexao = true;
   }
   else {
     Serial.println("Sem conexao!");
@@ -77,7 +77,7 @@ void loop() {
         Serial.println("Alarme Ativado com Sucesso!");
         digitalWrite(ledPin, HIGH);
         digitalWrite(ledPin2, LOW);
-        conexao = TRUE;
+        conexao = true;
         break;
       }
       else{
@@ -89,7 +89,7 @@ void loop() {
         }
       }
     }
-    conexao = FALSE;
+    conexao = false;
   }
 
   cliente.stop();
