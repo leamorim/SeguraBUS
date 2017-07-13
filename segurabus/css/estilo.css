@@ -1,3 +1,59 @@
 .infoBox { background-color: #FFF; width: 300px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; border: 2px solid #3fa7d8; border-radius: 3px; margin-top: 10px }
 .infoBox p { padding: 0 15px }
 .infoBox:before { border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #3fa7d8; top: -10px; content: ""; height: 0; position: absolute; width: 0; left: 138px }
+#mapa
+{
+	position:absolute;
+	left:20px;
+	top:280px;
+}
+#form
+{
+	position:absolute;
+	left:300px;
+	top:40px;
+}
+#form2
+{
+	position:absolute;
+	left:67px;
+	top:90px;
+	margin-left:-110px;
+	margin-top:-40px;
+}
+#form3
+{
+	position:absolute;
+	left:67px;
+	top:90px;
+	margin-left:-110px;
+	margin-top:-40px;
+}
+#logo
+{
+	position:absolute;
+	left:40px;
+	top:10px;
+}
+#botao_txt
+{
+	position:absolute;
+	left:480%;
+	top:110%;
+	margin-left:-110px;
+	margin-top:-40px;
+}
+#formulario
+{
+	position:absolute;
+	left:300px;
+	top:70px;
+}
+#confirmar_registro
+{
+	position:absolute;
+	left:30%;
+	top:15%;
+	margin-left:-110px;
+	margin-top:-40px;
+}
