@@ -4,14 +4,14 @@
 #include <SPI.h>
 #include <Ethernet.h>
 
+//informações do ônibus
 char linha[] = "303";
 char onibus[] = "7007";
 
-
-
+///informações para conexão com o servidor
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 byte ip[] = { 10, 0, 0 , 104 };
-byte servidor[] = { 10, 0, 0, 103};
+byte servidor[] = { 10, 0, 0, 101};
 
 EthernetClient cliente;
 
@@ -19,10 +19,12 @@ EthernetClient cliente;
 SoftwareSerial serial1(8, 9); // RX, TX
 TinyGPS gps1;
 
-const int buttonPin1 = 6;     // the number of the pushbutton1 pin
-const int ledPin =  7;      // the number of the LED pin
-const int ledPin2 = 3;      // the number of the LED pin
-byte desativador = 1;
+const int buttonPin1 = 6;     // Pino Botao de ativacao
+const int ledPin =  7;      // Pino LED branco
+const int ledPin2 = 3;      // Pino LED vermelho
+
+byte desativador = 1; // variavel de controle do alerta
+bool conexao = TRUE;
 
 void setup() {
 
@@ -31,44 +33,22 @@ void setup() {
   Ethernet.begin(mac, ip);
 
   // initialize the LED pin as an output:
-  pinMode(ledPin, OUTPUT);
-  pinMode(ledPin2, OUTPUT);
-  // initialize the pushbutton pin as an input:
-  pinMode(buttonPin1, INPUT);
+  pinMode(ledPin, OUTPUT);//LED branco
+  pinMode(ledPin2, OUTPUT);//LED vermelho
+  pinMode(buttonPin1, INPUT);//botao para ativação do alarme
 }
 
+
 void loop() {
-  long latitude, longitude;
-  String DatEth;
+  
+  long latitude, longitude;//variáveis do GPS
+  String DatEth;//variável para interpretação da string
 
   /// Espera o botao ser apertado
   Serial.println("Esperando apertar o botao");
-  while (digitalRead(buttonPin1) == LOW) {
+  while (digitalRead(buttonPin1) == LOW) {//Estado de esperar apertar o botão
 
   }
-
-  if (cliente.connect(servidor, 80)) { //fazer a lógica de teste da conexão aqui
-    cliente.println("GET /PHP/wfile.php?msg=ledon");
-    Serial.println("Alarme Ativado com Sucesso!");
-  }
-  else {
-    Serial.println("Nao conectou!");
-    for (int i = 0; i < 19; i++) {
-      if (cliente.connect(servidor, 80)) {
-        cliente.println("GET /PHP/wfile.php?msg=ledon");
-        Serial.println("Alarme Ativado com Sucesso!");
-        digitalWrite(ledPin2, HIGH);
-        break;
-
-      }
-      digitalWrite(ledPin2, HIGH);
-      delay(1000);
-    }
-  }
-
-  cliente.stop();
-
-  digitalWrite(ledPin2, LOW);
 
   Serial.print("Botao apertado");
   delay(200);
@@ -78,8 +58,43 @@ void loop() {
   delay(200);
   Serial.println(".");
   delay(200);
-  // acende o LED para indicar que a informação está sendo enviada
-  digitalWrite(ledPin, HIGH);
+  Serial.println("Conectando..");
+  
+  if (cliente.connect(servidor, 80)) { //estado de teste de conexão
+    cliente.println("GET segurabus/PHP/wfile.php?msg=ledon");
+    Serial.println("Conectado");
+    Serial.println("Alarme Ativado com Sucesso!");
+    digitalWrite(ledPin, HIGH);   // acende o LED para indicar que a informação está sendo enviada
+    conexao = TRUE;
+  }
+  else {
+    Serial.println("Sem conexao!");
+    
+    for (int i = 0; i < 19; i++) {
+      Serial.println("Tentando conectar !");
+      if (cliente.connect(servidor, 80)) {
+        cliente.println("GET segurabus/PHP/wfile.php?msg=ledon");
+        Serial.println("Alarme Ativado com Sucesso!");
+        digitalWrite(ledPin, HIGH);
+        digitalWrite(ledPin2, LOW);
+        conexao = TRUE;
+        break;
+      }
+      else{
+        for(int i = 0; i < 8;i++){//loop apenas para passar o tempo de tentar enviar novamente
+            digitalWrite(ledPin2, HIGH);
+            delay(2000);
+            digitalWrite(ledPin2, LOW);
+            delay(2000);
+        }
+      }
+    }
+    conexao = FALSE;
+  }
+
+  cliente.stop();
+
+  if(conexao){
 
   Serial.println("Enviando a informacao");
   //Aqui seria onde esperaríamos o sinal vindo do monitoramento para desativar o alerta
@@ -89,7 +104,7 @@ void loop() {
       Serial.println("conectado");
 
       // Make a HTTP request:
-      cliente.println("GET /PHP/volta.php");
+      cliente.println("GET segurabus/PHP/volta.php");
       delay(600);
       while (cliente.available()) {
         // Serial.println("WHILE");
@@ -150,7 +165,7 @@ void loop() {
     
       if (cliente.connect(servidor, 80)) {
         // Make a HTTP request:
-        cliente.print("GET /arduino/segurabus/salvardados.php?");
+        cliente.print("GET segurabus/PHP/salvardados.php?");
         cliente.print("latitude=");
         cliente.print(float(latitude) / 100000, 6);
         cliente.print("&longitude=");
@@ -168,6 +183,7 @@ void loop() {
         Serial.println(onibus);
         Serial.print("status=");
         Serial.println(desativador);
+        
 
         cliente.stop();
       }
@@ -175,7 +191,7 @@ void loop() {
         cliente.stop();
       }
       
-    delay(2000);
+    delay(5000);//tempo de enviar outro dado
   }
   desativador = 1;//variável de controle do loop
   /////Chega nessa parte quando o alarme for desativado
@@ -183,7 +199,7 @@ void loop() {
   digitalWrite(ledPin, LOW);
   delay(100);
   Serial.println("Alarme Desativado !");
-
+  }
 
   //delay(1000);
 
