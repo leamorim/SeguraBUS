@@ -189,10 +189,52 @@ void loop() {
         cliente.stop();
       }
       else {
+        Serial.println("Sem conexao!");
+
+    for (int i = 0; i < 19; i++) {
+      Serial.println("Tentando conectar !");
+      if (cliente.connect(servidor, 80)) {
+
+        cliente.print("GET /segurabus/PHP/salvardados.php?");
+        cliente.print("latitude=");
+        cliente.print(float(latitude) / 100000, 6);
+        cliente.print("&longitude=");
+        cliente.print(float(longitude) / 100000, 6);
+        cliente.print("&linha=");
+        cliente.print(linha);
+        cliente.print("&onibus=");
+        cliente.print(onibus);
+        cliente.print("&status=");
+        cliente.println(desativador);
+
+        Serial.print("linha=");
+        Serial.println(linha);
+        Serial.print("onibus=");
+        Serial.println(onibus);
+        Serial.print("status=");
+        Serial.println(desativador);
+
+        
+        Serial.println("Conectado !! Enviando Dados !");
+        digitalWrite(ledPin, HIGH);
+        digitalWrite(ledPin2, LOW);
+        conexao = true;
+        break;
+      }
+      else {
+        for (int i = 0; i < 8; i++) { //loop apenas para passar o tempo de tentar enviar novamente
+          digitalWrite(ledPin2, HIGH);
+          delay(2000);
+          digitalWrite(ledPin2, LOW);
+          delay(2000);
+        }
+        conexao = false;
+      }
+    }
         cliente.stop();
       }
 
-      delay(5000);//tempo de enviar outro dado
+      delay(10000);//tempo de enviar outro dado
     }
     desativador = 1;//variável de controle do loop
     /////Chega nessa parte quando o alarme for desativado
