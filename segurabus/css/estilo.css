@@ -7,6 +7,12 @@
 	left:20px;
 	top:280px;
 }
+#mapa_estatistica
+{
+	position:absolute;
+	left:0px;
+	top:0px;
+}
 #form
 {
 	position:absolute;
@@ -16,8 +22,8 @@
 #form2
 {
 	position:absolute;
-	left:67px;
-	top:90px;
+	left:710px;
+	top:115px;
 	margin-left:-110px;
 	margin-top:-40px;
 }
@@ -39,15 +45,15 @@
 {
 	position:absolute;
 	left:480%;
-	top:110%;
+	top:120%;
 	margin-left:-110px;
 	margin-top:-40px;
 }
 #formulario
 {
 	position:absolute;
-	left:300px;
-	top:70px;
+	left:100px;
+	top:-10px;
 }
 #confirmar_registro
 {
@@ -56,4 +62,34 @@
 	top:15%;
 	margin-left:-110px;
 	margin-top:-40px;
+}
+#titulo_tab_alerta
+{
+	position:absolute;
+	left:400px;
+	top:-100px;
+}
+#tab_alerta
+{
+	position:absolute;
+	left:340px;
+	top:0px;
+}
+#titulo_estatistica
+{
+	position:absolute;
+	left:300px;
+	top:-40px;
+}
+#tab_estatistica
+{
+	position:absolute;
+	left:300px;
+	top:30px;
+}
+#backhome_registrar
+{
+	position:absolute;
+	left:300px;
+	top:40px;
 }

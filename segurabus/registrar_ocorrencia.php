@@ -10,6 +10,14 @@
     <body>
 		<img id="logo" src="img/logo.png" />
 		
+		<!-- Botão que acessa outra página -->
+		<form class="selecione" id="backhome_registrar" name="form3" method="post" action="index.php">
+		<div align="right">
+		<input type="hidden" name="enviar" value="enviar" />
+		<input name="ok" type="image" src="img/ok.png" class="ok"/></div>
+		<text id="botao_txt"> Voltar para a tela Inicial <text/>
+		</form>
+		
 		<form action="inserindo_em_bd.php" method="post" id="formulario">
 			<div>
 				<label for="linha">Linha de Ônibus:</label>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Alerta desativado com sucesso</title>
+</head>
+
+<body>
+
+<tr>
+<td><p class="texto">Alerta desativado com sucesso</p></td>
+<td>&nbsp;</td>
+</tr>
+
+<?php
+	/*
+	//cria conexão
+	$connect=mysqli_connect('localhost','root','','segurabus');
+	if($connect){}
+	else{echo 'Não conectado ao Banco de Dados';}
+	//comando SQL(SELECT)
+	$result=mysqli_query($connect,"SELECT linha, onibus, data_hora, Descricao, status FROM assaltos ORDER BY data_hora DESC");
+	$row=mysqli_fetch_array($result);
+	$status=$row['status'];
+	*/
+?>
+
+<script type="text/javascript">
+	var string = "wfile.php?msg=ledof";
+	window.location.href = string;
+</script>
+</body>
+</html>

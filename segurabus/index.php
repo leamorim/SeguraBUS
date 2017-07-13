@@ -6,7 +6,7 @@
 	$connection = mysqli_connect("localhost","root","","segurabus") or die("Error " . mysqli_error($connection));
 	
 	//fetch table rows from mysql db
-	$sql = "SELECT Id, Latitude, Longitude, Descricao FROM assaltos";
+	$sql = "SELECT Id, Latitude, Longitude, Descricao FROM assaltos ORDER BY data_hora DESC";
 	$result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
 
 	//create an array
@@ -23,8 +23,6 @@
 
 	//close the db connection
 	mysqli_close($connection);
-	
-	
 ?>
 
 <html lang="pt-br">
@@ -37,13 +35,13 @@
     <body>
 		<img id="logo" src="img/logo.png" />
 	
-    	<div id="mapa" style="height: 350px; width: 1320px" >
+    	<div id="mapa" style="height: 370px; width: 1050px" >
         </div>
 		
 		<script src="js/jquery.min.js"></script>
  
         <!-- Maps API Javascript -->
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD3pbQq21BdkOQnYeHWI56HvgbTzO0aOQU"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBsVSCQjs0oQ3jaM5EWXk9Q23LsiLx2Z58"></script>
         
         <!-- Caixa de informação -->
         <script src="js/infobox.js"></script>
@@ -63,21 +61,52 @@
 		</form>
 		
 		<!-- Botão que acessa outra página -->
-		<form class="selecione" id="form2" name="form2" method="post" action="wfile.php">
+		<form class="selecione" id="form3" name="form3" method="post" action="tabela.php">
+		<div align="right">
+		<input type="hidden" name="enviar" value="enviar" />
+		<input name="ok" type="image" src="img/ok.png" class="ok"/></div>
+		<text id="botao_txt"> Estatística <text/>
+		</form>
+		
+		<?php
+			//cria conexão
+			$connect=mysqli_connect('localhost','root','','segurabus');
+			if($connect){}
+			else{echo 'Não conectado ao Banco de Dados';}
+			//comando SQL(SELECT)
+			$result=mysqli_query($connect,"SELECT linha, onibus, data_hora, Descricao, status FROM assaltos ORDER BY data_hora DESC");
+			$row=mysqli_fetch_array($result);
+			$status=$row['status'];
+			if($status == 1)
+			{
+		?>
+		
+		<h1 id="titulo_tab_alerta" >Assaltos ocorrendo</h1>
+		<table id="tab_alerta" border=1 >
+			<tr>
+				<td>Linha</td>
+				<td>Numero de ônibus</td>
+				<td>Data e hora</td>
+				<td>Descrição</td>
+			</tr>
+			<tr>
+				<td><?php echo $result1=$row['linha']; ?></td>
+				<td><?php echo $result1=$row['onibus']; ?></td>
+				<td><?php echo $result1=$row['data_hora']; ?></td>
+				<td><?php echo $result1=$row['Descricao']; ?></td>
+			</tr>				
+				
+		</table>
+		
+		<!-- Botão que acessa outra página -->
+		<form class="selecione" id="form2" name="form2" method="post" action="PHP/desativa.html">
 		<div align="right">
 		<input type="hidden" name="enviar" value="enviar" />
 		<input name="ok" type="image" src="img/ok.png" class="ok"/></div>
 		<text id="botao_txt"> Desativar alarme <text/>
 		</form>
 		
-		<!-- Botão que acessa outra página -->
-		<form class="selecione" id="form3" name="form3" method="post" action="tabela.php">
-		<div align="right">
-		<input type="hidden" name="enviar" value="enviar" />
-		<input name="ok" type="image" src="img/ok.png" class="ok"/></div>
-		<text id="botao_txt"> Registro dos assaltos <text/>
-		</form>
-		
+			<?php } ?>
 		
     </body>
 	
