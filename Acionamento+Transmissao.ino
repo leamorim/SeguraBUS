@@ -25,6 +25,7 @@ const int ledPin2 = 3;      // Pino LED vermelho
 
 byte desativador = 1; // variavel de controle do alerta
 bool conexao = true;
+bool engano = false;
 
 void setup() {
 
@@ -49,8 +50,8 @@ void loop() {
   while (digitalRead(buttonPin1) == LOW) {//Estado de esperar apertar o botão
 
   }
-
-  Serial.print("Botao apertado");
+  int tempo_ativacao = milis();
+  Serial.print("Botao apertado 1x");
   delay(200);
   Serial.print(".");
   delay(200);
@@ -60,6 +61,16 @@ void loop() {
   delay(200);
   Serial.println("Conectando..");
 
+  while (digitalRead(buttonPin1) == LOW) {//Estado de esperar apertar o botão 2x
+         digitalWrite(ledPin, HIGH);
+         delay(500);
+         if((milis() - tempo_ativacao) > 15000000){
+          Serial.println("apertado por engano!");
+          engano = true;
+         }
+  }
+  
+ if(!engano){ 
   if (cliente.connect(servidor, 80)) { //estado de teste de conexão
     cliente.println("GET /segurabus/PHP/wfile2.php?msg=ledon");
     Serial.println("Conectado");
@@ -236,6 +247,7 @@ void loop() {
 
       delay(10000);//tempo de enviar outro dado
     }
+  }
     desativador = 1;//variável de controle do loop
     /////Chega nessa parte quando o alarme for desativado
 
