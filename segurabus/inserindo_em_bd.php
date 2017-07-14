@@ -9,17 +9,17 @@
   $erro = NULL;
   if($linha == NULL)
   {
-	  echo Linha deve ser inserido;
+	  echo "Linha deve ser inserido";
 	  $erro = 1;
   }
   if($data_hora == NULL)
   {
-	  echo Data e Hora deve ser inserido;
+	  echo "Data e Hora deve ser inserido";
 	  $erro = 1;
   }
   if($descricao == NULL)
   {
-	  echo Descrição deve ser inserido;
+	  echo "Descrição deve ser inserido";
 	  $erro = 1;
   }
 ?>

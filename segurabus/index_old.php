@@ -79,8 +79,7 @@
 			$status=$row['status'];
 			if($status == 1)
 			{
-		?>		
-		
+		?>
 		
 		<h1 id="titulo_tab_alerta" >Assaltos ocorrendo</h1>
 		<table id="tab_alerta" border=1 >
@@ -98,7 +97,7 @@
 			</tr>				
 				
 		</table>
-
+		
 		<!-- Botão que acessa outra página -->
 		<form class="selecione" id="form2" name="form2" method="post" action="PHP/desativa.html">
 		<div align="right">
@@ -106,10 +105,9 @@
 		<input name="ok" type="image" src="img/ok.png" class="ok"/></div>
 		<text id="botao_txt"> Desativar alarme <text/>
 		</form>
-
+		
 			<?php } ?>
 		
-		
-		
-		</body>
+    </body>
+	
 </html>
