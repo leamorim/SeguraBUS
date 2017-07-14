@@ -11,6 +11,6 @@ fwrite($fh, $stringToWrite);
  
 fclose($fh); 
  
-//header("Location: http://10.0.0.102/segurabus2/index.php");
-header("Location: http://localhost/segurabus/index.php");
+header("Location: http://10.0.0.102/segurabus/index.php");
+//header("Location: http://localhost/segurabus/index.php");
 ?>

@@ -4,13 +4,11 @@ var infoBox = [];
 var markers = [];
 
 function initialize() {	
-	var latlng = new google.maps.LatLng(-8.055920, -34.951110);
-	
-    var options = {
-        zoom: 5,
-		center: latlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
+	var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: {lat: 0, lng: 0},
+    disableDefaultUI: true
+  };
 
     map = new google.maps.Map(document.getElementById("mapa"), options);
 }
